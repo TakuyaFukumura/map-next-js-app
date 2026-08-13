@@ -1,6 +1,6 @@
 {
   "name": "map-next-js-app",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -13,10 +13,13 @@
   },
   "dependencies": {
     "@types/better-sqlite3": "^7.6.13",
+    "@types/leaflet": "^1.9.22",
     "better-sqlite3": "^12.11.1",
+    "leaflet": "^1.9.4",
     "next": "16.3.0",
     "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react-dom": "19.2.7",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
