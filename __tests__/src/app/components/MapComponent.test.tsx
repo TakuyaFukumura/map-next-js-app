@@ -33,7 +33,7 @@ jest.mock('leaflet', () => ({
     },
 }));
 
-import MapComponent from '../../../../src/app/components/MapComponent';
+import MapComponent from '@/app/components/MapComponent';
 
 describe('MapComponent', () => {
     it('マップコンテナが表示される', () => {
