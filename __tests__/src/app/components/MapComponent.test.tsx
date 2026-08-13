@@ -22,8 +22,6 @@ jest.mock('react-leaflet', () => ({
     ),
 }));
 
-jest.mock('leaflet/dist/leaflet.css', () => ({}));
-
 jest.mock('leaflet', () => ({
     Icon: {
         Default: {
