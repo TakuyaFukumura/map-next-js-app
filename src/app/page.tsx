@@ -17,7 +17,7 @@ export default function Home() {
                 </p>
             </div>
             <div className="flex-1">
-                <MapComponent />
+                <MapComponent/>
             </div>
         </div>
     );
