@@ -51,7 +51,6 @@ export default function Header() {
                             title={`現在: ${getThemeLabel()}`}
                         >
                             <span className="text-lg">{getThemeIcon()}</span>
-                            <span className="hidden sm:inline">{getThemeLabel()}</span>
                         </button>
                     </div>
                 </div>
