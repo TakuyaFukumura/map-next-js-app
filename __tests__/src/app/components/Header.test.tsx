@@ -62,6 +62,22 @@ describe('Header', () => {
             fireEvent.mouseEnter(button);
             expect(tooltip).toHaveClass('visible', 'opacity-100');
         });
+
+        it('ヘルプをクリックで開閉し、Escキーで閉じられる', () => {
+            renderWithProvider();
+
+            const button = screen.getByRole('button', {name: 'このアプリについて'});
+            const tooltip = screen.getByRole('tooltip');
+
+            expect(button).toHaveAttribute('aria-expanded', 'false');
+            fireEvent.click(button);
+            expect(button).toHaveAttribute('aria-expanded', 'true');
+            expect(tooltip).toHaveClass('visible', 'opacity-100');
+
+            fireEvent.keyDown(document, {key: 'Escape'});
+            expect(button).toHaveAttribute('aria-expanded', 'false');
+            expect(tooltip).toHaveClass('invisible', 'opacity-0');
+        });
     });
 
     describe('ライトモード', () => {

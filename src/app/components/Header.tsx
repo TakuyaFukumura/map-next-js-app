@@ -1,7 +1,7 @@
 'use client';
 
 import {useDarkMode} from './DarkModeProvider';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const HELP_DESCRIPTION = 'OpenStreetMapの地図を表示し、東京の位置を確認できます。右隣のボタンでライトモードとダークモードを切り替えられます。';
 
@@ -9,6 +9,21 @@ export default function Header() {
     const {theme, setTheme, hydrated} = useDarkMode();
     const [isHelpVisible, setIsHelpVisible] = useState(false);
     const displayTheme = hydrated ? theme : 'light';
+
+    useEffect(() => {
+        if (!isHelpVisible) {
+            return;
+        }
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsHelpVisible(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isHelpVisible]);
 
     const handleThemeToggle = () => {
         if (displayTheme === 'light') {
@@ -56,8 +71,10 @@ export default function Header() {
                         >
                             <button
                                 type="button"
+                                onClick={() => setIsHelpVisible((visible) => !visible)}
                                 aria-label="このアプリについて"
                                 aria-describedby="map-help-tooltip"
+                                aria-expanded={isHelpVisible}
                                 title={HELP_DESCRIPTION}
                                 className="flex h-10 w-10 items-center justify-center rounded-full
                                 text-sm font-semibold text-gray-700 transition-colors duration-200
