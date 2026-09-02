@@ -38,7 +38,7 @@ export default function Header() {
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center">
                         <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                            map-next-js-app
+                            map
                         </h1>
                     </div>
 
@@ -51,7 +51,6 @@ export default function Header() {
                             title={`現在: ${getThemeLabel()}`}
                         >
                             <span className="text-lg">{getThemeIcon()}</span>
-                            <span className="hidden sm:inline">{getThemeLabel()}</span>
                         </button>
                     </div>
                 </div>
