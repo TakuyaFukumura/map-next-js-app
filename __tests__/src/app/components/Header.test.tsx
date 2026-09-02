@@ -52,8 +52,11 @@ describe('Header', () => {
             const button = screen.getByRole('button', {name: 'このアプリについて'});
             const tooltip = screen.getByRole('tooltip');
 
-            expect(button).toHaveAttribute('title', 'このアプリについて');
-            expect(tooltip).toHaveTextContent('OpenStreetMapの地図を表示');
+            expect(button).toHaveAttribute(
+                'title',
+                'OpenStreetMapの地図を表示し、東京の位置を確認できます。右隣のボタンでライトモードとダークモードを切り替えられます。',
+            );
+            expect(tooltip).toHaveTextContent('OpenStreetMapの地図を表示し、東京の位置を確認できます。');
             expect(tooltip).toHaveClass('invisible', 'opacity-0');
 
             fireEvent.mouseEnter(button);
