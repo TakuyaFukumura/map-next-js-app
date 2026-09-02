@@ -20,6 +20,9 @@ const config = {
         '**/*.(test|spec).(ts|tsx|js)'
     ],
 
+    // better-sqlite3のネイティブモジュールをワーカー間で競合させない
+    maxWorkers: 1,
+
     // カバレッジの設定
     collectCoverageFrom: [
         'src/**/*.{ts,tsx}',
