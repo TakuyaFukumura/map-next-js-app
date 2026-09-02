@@ -1,6 +1,14 @@
 'use client';
 
-import {createContext, ReactNode, useContext, useEffect, useMemo, useState} from 'react';
+import {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+    useSyncExternalStore,
+} from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -8,6 +16,7 @@ interface DarkModeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
     isDark: boolean;
+    hydrated: boolean;
 }
 
 const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
@@ -27,6 +36,11 @@ export function DarkModeProvider({children}: { readonly children: ReactNode }) {
         }
     });
     const [isDark, setIsDark] = useState(false);
+    const hydrated = useSyncExternalStore(
+        () => () => {},
+        () => true,
+        () => false,
+    );
 
     useEffect(() => {
         const updateTheme = () => {
@@ -49,7 +63,10 @@ export function DarkModeProvider({children}: { readonly children: ReactNode }) {
         localStorage.setItem('theme', newTheme);
     };
 
-    const value = useMemo(() => ({theme, setTheme: handleSetTheme, isDark}), [theme, isDark]);
+    const value = useMemo(
+        () => ({theme, setTheme: handleSetTheme, isDark, hydrated}),
+        [theme, isDark, hydrated],
+    );
 
     return (
         <DarkModeContext.Provider value={value}>
