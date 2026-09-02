@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
+    margin: 0;
     background: #ffffff;
     color: #171717;
     font-family: Arial, Helvetica, sans-serif;
