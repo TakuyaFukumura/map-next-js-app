@@ -3,10 +3,11 @@
 import {useDarkMode} from './DarkModeProvider';
 
 export default function Header() {
-    const {theme, setTheme} = useDarkMode();
+    const {theme, setTheme, hydrated} = useDarkMode();
+    const displayTheme = hydrated ? theme : 'light';
 
     const handleThemeToggle = () => {
-        if (theme === 'light') {
+        if (displayTheme === 'light') {
             setTheme('dark');
         } else {
             setTheme('light');
@@ -14,7 +15,7 @@ export default function Header() {
     };
 
     const getThemeIcon = () => {
-        if (theme === 'light') {
+        if (displayTheme === 'light') {
             return '☀️';
         } else {
             return '🌙';
@@ -22,7 +23,7 @@ export default function Header() {
     };
 
     const getThemeLabel = () => {
-        if (theme === 'light') {
+        if (displayTheme === 'light') {
             return 'ライトモード';
         } else {
             return 'ダークモード';
