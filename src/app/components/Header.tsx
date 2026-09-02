@@ -42,12 +42,36 @@ export default function Header() {
                         </h1>
                     </div>
 
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-1">
+                        <div className="group relative">
+                            <button
+                                type="button"
+                                aria-label="このアプリについて"
+                                className="flex h-10 w-10 items-center justify-center rounded-full
+                                text-sm font-semibold text-gray-700 transition-colors duration-200
+                                hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2
+                                focus-visible:outline-gray-500 dark:text-gray-300 dark:hover:bg-gray-700"
+                            >
+                                ?
+                            </button>
+                            <div
+                                role="tooltip"
+                                className="pointer-events-none invisible absolute right-0 top-full z-50 mt-2
+                                w-64 rounded-lg bg-gray-900 px-3 py-2 text-left text-sm text-white
+                                opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100
+                                group-focus-within:visible group-focus-within:opacity-100 dark:bg-gray-700"
+                            >
+                                OpenStreetMapの地図を表示し、東京の位置を確認できます。
+                                右隣のボタンでライトモードとダークモードを切り替えられます。
+                            </div>
+                        </div>
                         <button
+                            type="button"
                             onClick={handleThemeToggle}
                             className="flex items-center gap-2 px-3 py-2 text-sm font-medium
                             text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700
                             rounded-lg transition-colors duration-200"
+                            aria-label={`現在: ${getThemeLabel()}`}
                             title={`現在: ${getThemeLabel()}`}
                         >
                             <span className="text-lg">{getThemeIcon()}</span>
