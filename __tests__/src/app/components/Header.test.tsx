@@ -49,8 +49,15 @@ describe('Header', () => {
         it('アプリの説明を表示するヘルプボタンが表示される', () => {
             renderWithProvider();
 
-            expect(screen.getByRole('button', {name: 'このアプリについて'})).toBeInTheDocument();
-            expect(screen.getByRole('tooltip')).toHaveTextContent('OpenStreetMapの地図を表示');
+            const button = screen.getByRole('button', {name: 'このアプリについて'});
+            const tooltip = screen.getByRole('tooltip');
+
+            expect(button).toHaveAttribute('title', 'このアプリについて');
+            expect(tooltip).toHaveTextContent('OpenStreetMapの地図を表示');
+            expect(tooltip).toHaveClass('invisible', 'opacity-0');
+
+            fireEvent.mouseEnter(button);
+            expect(tooltip).toHaveClass('visible', 'opacity-100');
         });
     });
 

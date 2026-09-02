@@ -1,9 +1,11 @@
 'use client';
 
 import {useDarkMode} from './DarkModeProvider';
+import {useState} from 'react';
 
 export default function Header() {
     const {theme, setTheme, hydrated} = useDarkMode();
+    const [isHelpVisible, setIsHelpVisible] = useState(false);
     const displayTheme = hydrated ? theme : 'light';
 
     const handleThemeToggle = () => {
@@ -43,10 +45,18 @@ export default function Header() {
                     </div>
 
                     <div className="flex items-center gap-1">
-                        <div className="group relative">
+                        <div
+                            className="relative"
+                            onMouseEnter={() => setIsHelpVisible(true)}
+                            onMouseLeave={() => setIsHelpVisible(false)}
+                            onFocus={() => setIsHelpVisible(true)}
+                            onBlur={() => setIsHelpVisible(false)}
+                        >
                             <button
                                 type="button"
                                 aria-label="このアプリについて"
+                                aria-describedby="map-help-tooltip"
+                                title="このアプリについて"
                                 className="flex h-10 w-10 items-center justify-center rounded-full
                                 text-sm font-semibold text-gray-700 transition-colors duration-200
                                 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2
@@ -55,11 +65,12 @@ export default function Header() {
                                 ?
                             </button>
                             <div
+                                id="map-help-tooltip"
                                 role="tooltip"
-                                className="pointer-events-none invisible absolute right-0 top-full z-50 mt-2
-                                w-64 rounded-lg bg-gray-900 px-3 py-2 text-left text-sm text-white
-                                opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100
-                                group-focus-within:visible group-focus-within:opacity-100 dark:bg-gray-700"
+                                className={`pointer-events-none absolute right-0 top-full z-50 mt-2 w-64
+                                rounded-lg bg-gray-900 px-3 py-2 text-left text-sm text-white
+                                shadow-lg transition-opacity dark:bg-gray-700
+                                ${isHelpVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
                             >
                                 OpenStreetMapの地図を表示し、東京の位置を確認できます。
                                 右隣のボタンでライトモードとダークモードを切り替えられます。
