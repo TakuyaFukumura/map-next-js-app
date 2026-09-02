@@ -42,8 +42,25 @@ describe('Header', () => {
         it('テーマ切り替えボタンが表示される', () => {
             renderWithProvider();
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             expect(button).toBeInTheDocument();
+        });
+
+        it('アプリの説明を表示するヘルプボタンが表示される', () => {
+            renderWithProvider();
+
+            const button = screen.getByRole('button', {name: 'このアプリについて'});
+            const tooltip = screen.getByRole('tooltip');
+
+            expect(button).toHaveAttribute(
+                'title',
+                'OpenStreetMapの地図を表示し、東京の位置を確認できます。右隣のボタンでライトモードとダークモードを切り替えられます。',
+            );
+            expect(tooltip).toHaveTextContent('OpenStreetMapの地図を表示し、東京の位置を確認できます。');
+            expect(tooltip).toHaveClass('invisible', 'opacity-0');
+
+            fireEvent.mouseEnter(button);
+            expect(tooltip).toHaveClass('visible', 'opacity-100');
         });
     });
 
@@ -63,7 +80,7 @@ describe('Header', () => {
         it('ボタンのtitle属性が正しく設定される', () => {
             renderWithProvider('light');
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             expect(button).toHaveAttribute('title', '現在: ライトモード');
         });
     });
@@ -86,7 +103,7 @@ describe('Header', () => {
         it('ボタンのtitle属性が正しく設定される', () => {
             renderWithProvider('dark');
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             expect(button).toHaveAttribute('title', '現在: ダークモード');
         });
     });
@@ -101,7 +118,7 @@ describe('Header', () => {
             expect(screen.queryByText('ライトモード')).not.toBeInTheDocument();
 
             // ボタンをクリック
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             fireEvent.click(button);
 
             // ダークモードに変更されたことを確認
@@ -117,7 +134,7 @@ describe('Header', () => {
             expect(screen.queryByText('ダークモード')).not.toBeInTheDocument();
 
             // ボタンをクリック
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             fireEvent.click(button);
 
             // ライトモードに変更されたことを確認
@@ -128,7 +145,7 @@ describe('Header', () => {
         it('複数回のクリックで正しく切り替わる', () => {
             renderWithProvider('light');
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
 
             // ライトモード → ダークモード
             fireEvent.click(button);
@@ -148,7 +165,7 @@ describe('Header', () => {
         it('ボタンがキーボードでアクセス可能', () => {
             renderWithProvider();
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             expect(button).toBeInTheDocument();
 
             // タブキーでフォーカス可能かを確認
@@ -159,7 +176,7 @@ describe('Header', () => {
         it('適切なaria属性が設定されている', () => {
             renderWithProvider();
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
 
             // title属性による説明があることを確認
             expect(button).toHaveAttribute('title');
@@ -196,7 +213,7 @@ describe('Header', () => {
         it('ボタンに適切なスタイルクラスが適用される', () => {
             renderWithProvider();
 
-            const button = screen.getByRole('button');
+            const button = screen.getByRole('button', {name: /現在:/});
             expect(button).toHaveClass('flex', 'items-center', 'gap-2');
         });
     });

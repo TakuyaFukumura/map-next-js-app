@@ -7,16 +7,8 @@ const MapComponent = dynamic(() => import('./components/MapComponent'), {ssr: fa
 
 export default function Home() {
     return (
-        <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-            <div className="p-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                    🗺️ シンプルマップ
-                </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                    OpenStreetMapを使用したシンプルなマップアプリです
-                </p>
-            </div>
-            <div className="flex-1">
+        <div className="flex h-[calc(100dvh-4rem)] min-h-[calc(100vh-4rem)] flex-col">
+            <div className="min-h-0 flex-1">
                 <MapComponent/>
             </div>
         </div>
